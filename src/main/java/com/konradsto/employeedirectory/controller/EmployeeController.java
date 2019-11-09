@@ -14,12 +14,11 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @Autowired
-
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<Employee> getAllEmployees() {
         return employeeService.findAll();
     }
@@ -29,20 +28,20 @@ public class EmployeeController {
     return employeeService.getEmployee(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping
     public Employee addEmployee (@RequestBody Employee employee){
         employeeService.saveEmployee(employee);
         return employee;
     }
 
-    @PutMapping("")
+    @PutMapping()
     public Employee updateEmployee(@RequestBody Employee employee){
         employeeService.saveEmployee(employee);
         return employee;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@RequestParam int id){
+    public void deleteEmployee(@PathVariable int id){
         employeeService.deleteById(id);
     }
 }
