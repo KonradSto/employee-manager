@@ -5,9 +5,11 @@ import java.util.List;
 import com.konradsto.employeedirectory.model.Employee;
 import com.konradsto.employeedirectory.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/employees")
 public class EmployeeController {
 
@@ -17,10 +19,11 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-
-    @GetMapping()
-    public List<Employee> getAllEmployees() {
-        return employeeService.findAll();
+    
+    @GetMapping("/list")
+    public String listEmployees(Model model){
+        model.addAttribute("employees", employeeService.findAll());
+        return "employees-list";
     }
 
     @GetMapping("/{id}")
