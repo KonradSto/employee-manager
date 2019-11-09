@@ -1,10 +1,11 @@
 package com.konradsto.employeedirectory.controller;
 
+import java.util.List;
+
 import com.konradsto.employeedirectory.model.Employee;
 import com.konradsto.employeedirectory.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/employees")
@@ -19,17 +20,13 @@ public class EmployeeController {
     }
 
     @GetMapping("")
-    public ModelAndView getAllEmployees() {
-        ModelAndView model = new ModelAndView("employee_dir");
-        model.addObject(employeeService.findAll());
-        return model;
+    public List<Employee> getAllEmployees() {
+        return employeeService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getEmployeeById(@PathVariable int id){
-        ModelAndView model = new ModelAndView("employeePage");
-        model.addObject(employeeService.getEmployee(id));
-        return model;
+    public Employee getEmployeeById(@PathVariable int id){
+    return employeeService.getEmployee(id);
     }
 
     @PostMapping("/{id}")
