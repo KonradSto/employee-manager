@@ -20,7 +20,7 @@ public class EmployeeController {
 
     @GetMapping("/list")
     public String listEmployees(Model model){
-        model.addAttribute("employees", employeeService.findAll());
+        model.addAttribute("employees", employeeService.findAllByLastNameOrderAsc());
         return "employees/employees-list";
     }
 
@@ -40,6 +40,13 @@ public class EmployeeController {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
         return "employees/employee-form";
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("employeeId") int id, Model model){
+        Employee employee = employeeService.getEmployee(id);
+        model.addAttribute("employee", employee);
+        return "employees/employee-update";
     }
 
     @PutMapping()
