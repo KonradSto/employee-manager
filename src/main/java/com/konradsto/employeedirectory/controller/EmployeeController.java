@@ -1,13 +1,13 @@
 package com.konradsto.employeedirectory.controller;
 
-import java.util.List;
-
 import com.konradsto.employeedirectory.model.Employee;
 import com.konradsto.employeedirectory.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/employees")
 public class EmployeeController {
 
@@ -18,30 +18,35 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping()
-    public List<Employee> getAllEmployees() {
-        return employeeService.findAll();
+    @GetMapping("/list")
+    public String listEmployees(Model model){
+        model.addAttribute("employees", employeeService.findAllByLastNameOrderAsc());
+        return "employees/employees-list";
     }
 
-    @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable int id){
-    return employeeService.getEmployee(id);
-    }
-
-    @PostMapping
-    public Employee addEmployee (@RequestBody Employee employee){
+    @PostMapping("/save")
+    public String addEmployee (@ModelAttribute("employee") Employee employee){
         employeeService.saveEmployee(employee);
-        return employee;
+        return "redirect:/employees/list";
     }
 
-    @PutMapping()
-    public Employee updateEmployee(@RequestBody Employee employee){
-        employeeService.saveEmployee(employee);
-        return employee;
+    @GetMapping("/showFormForAdd")
+    public String showFormForAdd(Model model){
+        Employee employee = new Employee();
+        model.addAttribute("employee", employee);
+        return "employees/employee-form";
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable int id){
+    @GetMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("employeeId") int id, Model model){
+        Employee employee = employeeService.getEmployee(id);
+        model.addAttribute("employee", employee);
+        return "employees/employee-form";
+    }
+
+    @GetMapping("/delete")
+    public String deleteEmployee(@RequestParam("employeeId") int id){
         employeeService.deleteById(id);
+        return "redirect:/employees/list";
     }
 }
