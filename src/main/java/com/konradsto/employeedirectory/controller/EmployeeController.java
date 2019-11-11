@@ -24,11 +24,6 @@ public class EmployeeController {
         return "employees/employees-list";
     }
 
-    @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable int id){
-    return employeeService.getEmployee(id);
-    }
-
     @PostMapping("/save")
     public String addEmployee (@ModelAttribute("employee") Employee employee){
         employeeService.saveEmployee(employee);
@@ -46,17 +41,12 @@ public class EmployeeController {
     public String showFormForUpdate(@RequestParam("employeeId") int id, Model model){
         Employee employee = employeeService.getEmployee(id);
         model.addAttribute("employee", employee);
-        return "employees/employee-update";
+        return "employees/employee-form";
     }
 
-    @PutMapping()
-    public Employee updateEmployee(@RequestBody Employee employee){
-        employeeService.saveEmployee(employee);
-        return employee;
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable int id){
+    @GetMapping("/delete")
+    public String deleteEmployee(@RequestParam("employeeId") int id){
         employeeService.deleteById(id);
+        return "redirect:/employees/list";
     }
 }

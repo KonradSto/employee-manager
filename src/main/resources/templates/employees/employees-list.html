@@ -45,8 +45,9 @@
                        class="btn btn-info btn-sm mb-3">
                         Update
                     </a>
-                    <a th:href="@{/employees/showFormForUpdate}"
-                       class="btn btn-primary btn-sm mb-3">
+                    <a th:href="@{/employees/delete(employeeId=${tempEmployee.id})}"
+                       class="btn btn-danger btn-sm mb-3"
+                        onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
                         Delete
                     </a>
                 </td>
