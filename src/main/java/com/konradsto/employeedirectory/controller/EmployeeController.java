@@ -3,6 +3,7 @@ package com.konradsto.employeedirectory.controller;
 import com.konradsto.employeedirectory.model.Employee;
 import com.konradsto.employeedirectory.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/employees")
 public class EmployeeController {
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     private EmployeeService employeeService;
 
     @Autowired
@@ -26,6 +29,9 @@ public class EmployeeController {
 
     @PostMapping("/save")
     public String addEmployee (@ModelAttribute("employee") Employee employee){
+        String password = employee.getPassword();
+        String encryptedPassword = passwordEncoder.encode(password);
+        employee.setPassword(encryptedPassword);
         employeeService.saveEmployee(employee);
         return "redirect:/employees/list";
     }
