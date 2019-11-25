@@ -29,9 +29,6 @@ public class EmployeeController {
 
     @PostMapping("/save")
     public String addEmployee (@ModelAttribute("employee") Employee employee){
-        String password = employee.getPassword();
-        String encryptedPassword = passwordEncoder.encode(password);
-        employee.setPassword(encryptedPassword);
         employeeService.saveEmployee(employee);
         return "redirect:/employees/list";
     }
