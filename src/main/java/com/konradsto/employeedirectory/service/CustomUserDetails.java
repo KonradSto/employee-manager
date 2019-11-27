@@ -3,14 +3,14 @@ package com.konradsto.employeedirectory.service;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import com.konradsto.employeedirectory.model.User;
+import com.konradsto.employeedirectory.model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
-    private User user;
+    private Users user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -47,11 +47,11 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public User getEmployee() {
+    public Users getUser() {
         return user;
     }
 
-    public void setEmployee(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 }

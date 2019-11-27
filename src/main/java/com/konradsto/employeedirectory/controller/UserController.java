@@ -1,10 +1,8 @@
 package com.konradsto.employeedirectory.controller;
 
-import com.konradsto.employeedirectory.model.User;
+import com.konradsto.employeedirectory.model.Users;
 import com.konradsto.employeedirectory.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public void addUser(@RequestBody User user){
+    public void addUser(@RequestBody Users user){
         String password = user.getPassword();
         String encryptedPassword = passwordEncoder.encode(password);
         user.setPassword(encryptedPassword);

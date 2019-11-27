@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.konradsto.employeedirectory.dao.UserRepository;
-import com.konradsto.employeedirectory.model.User;
+import com.konradsto.employeedirectory.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUser(int id){
-        Optional<User> employee = userRepository.findById(id);
+    public Users getUser(int id){
+        Optional<Users> employee = userRepository.findById(id);
 
-        User theUser = null;
+        Users theUser = null;
 
         if (employee.isPresent()){
             theUser = employee.get();
@@ -29,7 +29,7 @@ public class UserService {
         return theUser;
     }
 
-    public void saveUser(User user){
+    public void saveUser(Users user){
         userRepository.save(user);
     }
 
@@ -37,7 +37,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public List<User> findAll(){
+    public List<Users> findAll(){
         return userRepository.findAll();
     }
 }

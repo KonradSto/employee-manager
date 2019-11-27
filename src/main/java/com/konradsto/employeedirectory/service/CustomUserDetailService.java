@@ -1,7 +1,7 @@
 package com.konradsto.employeedirectory.service;
 
 import com.konradsto.employeedirectory.dao.UserRepository;
-import com.konradsto.employeedirectory.model.User;
+import com.konradsto.employeedirectory.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,11 +14,11 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        Users user = userRepository.findByUsername(username);
         CustomUserDetails userDetails = null;
         if(user != null){
             userDetails = new CustomUserDetails();
-            userDetails.setEmployee(user);
+            userDetails.setUser(user);
         } else {
             throw new UsernameNotFoundException("Username " + username + "does not exist.");
         }

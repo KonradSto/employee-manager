@@ -4,8 +4,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name="`user`")
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,14 +13,14 @@ public class User {
     private String username;
     private String password;
     private String email;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User() {
+    public Users() {
     }
 
-    public User(int id, String username, String password, String email, Set<Role> roles) {
+    public Users(int id, String username, String password, String email, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;

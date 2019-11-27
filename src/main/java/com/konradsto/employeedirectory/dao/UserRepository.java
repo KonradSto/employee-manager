@@ -1,9 +1,9 @@
 package com.konradsto.employeedirectory.dao;
 
-import com.konradsto.employeedirectory.model.User;
+import com.konradsto.employeedirectory.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<Users, Integer> {
 
-    User findByUsername(String username);
+    Users findByUsername(String username);
 }
