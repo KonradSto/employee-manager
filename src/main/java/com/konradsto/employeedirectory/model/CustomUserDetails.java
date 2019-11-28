@@ -1,9 +1,8 @@
-package com.konradsto.employeedirectory.service;
+package com.konradsto.employeedirectory.model;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import com.konradsto.employeedirectory.model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class CustomUserDetails implements UserDetails {
 
     private Users user;
+
+    public CustomUserDetails(Users user) {
+        this.user = user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -24,7 +27,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getUsername();
     }
 
     @Override
@@ -47,11 +50,4 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
 }

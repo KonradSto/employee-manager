@@ -24,9 +24,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf()
-            .disable();
+
+        http.authorizeRequests()
+            .antMatchers("/employees/showForm*").hasAnyRole("MANAGER", "ADMIN")
+            .antMatchers("/employees/save*").hasAnyRole("MANAGER", "ADMIN")
+            .antMatchers("/employees/delete").hasRole("ADMIN")
+            .antMatchers("/employees/**").hasRole("USER")
+            .antMatchers("/resources/**").permitAll()
+            .and()
+            .formLogin()
+            .loginPage("/showLoginPage")
+            .loginProcessingUrl("/authenticateTheUser")
+            .permitAll()
+            .and()
+            .logout().permitAll()
+            .and()
+            .exceptionHandling().accessDeniedPage("/access-denied");
     }
 
     @Bean
