@@ -1,3 +1,4 @@
+/*
 package com.konradsto.employeedirectory.model;
 
 import java.util.Collection;
@@ -51,3 +52,4 @@ public class CustomUserDetails implements UserDetails {
     }
 
 }
+*/
