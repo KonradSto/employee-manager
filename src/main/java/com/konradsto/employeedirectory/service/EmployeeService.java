@@ -29,6 +29,17 @@ public class EmployeeService {
         return theEmployee;
     }
 
+    public List<Employee> searchBy(String theName) {
+        List<Employee> results = null;
+        if (theName != null && (theName.trim().length() > 0)) {
+            results = employeeRepository.findByNameContainsOrLastNameContainsAllIgnoreCase(theName, theName);
+        }
+        else {
+            results = findAll();
+        }
+        return results;
+    }
+
     public void saveEmployee(Employee employee){
         employeeRepository.save(employee);
     }

@@ -1,5 +1,7 @@
 package com.konradsto.employeedirectory.controller;
 
+import java.util.List;
+
 import com.konradsto.employeedirectory.model.Employee;
 import com.konradsto.employeedirectory.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +53,12 @@ public class EmployeeController {
     public String deleteEmployee(@RequestParam("employeeId") int id){
         employeeService.deleteById(id);
         return "redirect:/employees/list";
+    }
+
+    @GetMapping("/search")
+    public String searchByName(@RequestParam("employeeName") String theName, Model theModel) {
+        List<Employee> theEmployees = employeeService.searchBy(theName);
+        theModel.addAttribute("employees", theEmployees);
+        return "/employees/employees-list";
     }
 }

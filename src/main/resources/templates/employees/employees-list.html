@@ -29,10 +29,13 @@
     </div>
 
     <form th:action="@{/employees/search}" class="form-inline">
+        <div sec:authorize="hasAnyRole('ROLE_ADMIN')">
         <a th:href="@{/employees/showFormForAdd}"
            class="btn btn-primary btn-sm mr-5 mb-3">
             Add Employee
-        </a>
+            </a>
+        </div>
+
 
         <input class="form-control  ml-5 mr-sm-2 mb-3" type="search" name="employeeName" placeholder="Search by name" />
 
@@ -45,7 +48,7 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>Action</th>
+            <th sec:authorize="hasAnyRole('ROLE_ADMIN')">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -53,7 +56,7 @@
             <td th:text="${tempEmployee.name}" />
             <td th:text="${tempEmployee.lastName}" />
             <td th:text="${tempEmployee.email}" />
-            <td>
+            <td sec:authorize="hasAnyRole('ROLE_ADMIN')">
                 <a th:href="@{/employees/showFormForUpdate(employeeId=${tempEmployee.id})}"
                    class="btn btn-info btn-sm mb-3">
                     Update
@@ -67,6 +70,11 @@
         </tr>
         </tbody>
     </table>
+
+    <form action="#" th:action="@{/logout}"
+          method="POST">
+        <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+    </form>
 
 </div>
 </body>
